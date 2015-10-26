@@ -12,7 +12,6 @@ import sys
 # Dirección IP del servidor.
 SERVER = sys.argv[1]
 PORT = int(sys.argv[2])
-
 if PORT < 1024:
     sys.exit("ERROR: PORT IS inCORRECT")
 
@@ -21,7 +20,10 @@ LINE_LISTA = sys.argv[3:]
 LINE = ' '.join(LINE_LISTA)
 
 if (LINE.split()[0] == 'register'):
-    LINE = 'REGISTER' + ' sip:' + LINE.split()[1] + ' SIP/2.0\r\n\r\n'
+    if ():
+        sys.exit("Usage: client.py ip puerto register sip_address expires_value")
+    else:
+        LINE = 'REGISTER' + ' sip:' + LINE.split()[1] + ' SIP/2.0\r\n\r\n'
 
 # Creamos el socket, lo configuramos y lo atamos a un servidor/puerto
 my_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
