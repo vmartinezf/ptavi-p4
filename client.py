@@ -20,6 +20,9 @@ if PORT < 1024:
 LINE_LISTA = sys.argv[3:]
 LINE = ' '.join(LINE_LISTA)
 
+if (LINE.split()[0] == 'register'):
+    LINE = 'REGISTER' + ' sip:' + LINE.split()[1] + ' SIP/2.0\r\n\r\n'
+
 # Creamos el socket, lo configuramos y lo atamos a un servidor/puerto
 my_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 my_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
