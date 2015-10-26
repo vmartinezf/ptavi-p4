@@ -31,6 +31,8 @@ class EchoHandler(socketserver.DatagramRequestHandler):
 if __name__ == "__main__":
     # Creamos servidor de eco y escuchamos
     PORT = int(sys.argv[1])
+    if PORT < 1024:
+        sys.exit("Error: port is invalid")
     serv = socketserver.UDPServer(('', PORT), EchoHandler)
     print("Lanzando servidor UDP de eco...")
     serv.serve_forever()
