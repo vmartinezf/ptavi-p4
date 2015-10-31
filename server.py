@@ -26,8 +26,11 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
             line_decod = line.decode('utf-8')
             if (len(line_decod) >= 2):
                 if (line_decod.split()[0].upper() == 'REGISTER'):
-                    if ('@' in line_decod.split()[1]):
-                            self.dicc[line_decod.split()[1]] = client_infor[0]
+                    if (int(line_decod.split()[2]) == 0):
+                        if (len(self.dicc) != 0):
+                            del self.dicc[line_decod.split()[1]]
+                    elif ('@' in line_decod.split()[1]):
+                        self.dicc[line_decod.split()[1]] = client_infor[0]
                     print (self.dicc)
                     self.wfile.write(b"SIP/2.0 200 OK\r\n\r\n")
                 else:
