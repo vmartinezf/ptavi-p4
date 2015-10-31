@@ -17,13 +17,16 @@ if PORT < 1024:
 
 # Contenido que vamos a enviar
 LINE_LISTA = sys.argv[3:]
+if (len(sys.argv) != 6):
+    sys.exit("Usage: client.py ip puerto register sip_address expires_value")
+
 LINE = ' '.join(LINE_LISTA)
 
 if (LINE.split()[0] == 'register'):
-    if ():
-        sys.exit("Usage: client.py ip puerto register sip_address expires_value")
-    else:
-        LINE = 'REGISTER' + ' sip:' + LINE.split()[1] + ' SIP/2.0\r\n\r\n'
+    if (('@' in LINE.split()[1]) and (type(LINE.split()[2]) == int)):
+        Line_Sip = " sip:" + LINE.split()[1] + " SIP/2.0\r\n\\"
+        Line_Expires = "Expires: " + LINE.split()[2] + "\r\n\r\n"
+        LINE = "REGISTER" + Line_Sip + Line_Expires
 
 # Creamos el socket, lo configuramos y lo atamos a un servidor/puerto
 my_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
