@@ -7,8 +7,31 @@ Clase (y programa principal) para un servidor de eco en UDP simple
 import socketserver
 import sys
 import json
-import calendar
 import time
+
+
+def regist(line_decod, dicc_usuarios, dicc, client_infor):
+    direction = line_decod.split()[1]
+    expiration = int(line_decod.split()[2])
+    expires = int(time.time()) + expiration
+    time_expiration = time.strftime('%Y-%m-%d %H:%M:%S',
+                                    time.gmtime(expires))
+    dicc_usuarios["address"] = client_infor[0]
+    dicc_usuarios["expires"] = time_expiration
+    if (expiration == 0):
+        if (len(dicc) != 0):
+            del dicc[direction]
+    elif ('@' in direction):
+        dicc[direction] = dicc_usuarios
+    print (dicc)
+    for usuario in dicc:
+        time_now = time.strftime('%Y­%m­%d %H:%M:%S',
+                                 time.gmtime(time.time()))
+        direct = dicc[usuario]
+        value = direct["expires"]
+        if (str(time_now) > value):
+            del dicc[direction]
+            break
 
 
 class SIPRegisterHandler(socketserver.DatagramRequestHandler):
@@ -30,27 +53,7 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
             line_decod = line.decode('utf-8')
             if (len(line_decod) >= 2):
                 if (line_decod.split()[0].upper() == 'REGISTER'):
-                    direction = line_decod.split()[1]
-                    expiration = int(line_decod.split()[2])
-                    expires = int(time.time()) + expiration
-                    time_expiration = time.strftime('%Y-%m-%d %H:%M:%S',
-                                                    time.gmtime(expires))
-                    dicc_usuarios["address"] = client_infor[0]
-                    dicc_usuarios["expires"] = time_expiration
-                    if (expiration == 0):
-                        if (len(self.dicc) != 0):
-                            del self.dicc[direction]
-                    elif ('@' in direction):
-                        self.dicc[direction] = dicc_usuarios
-                    print (self.dicc)
-                    for usuario in self.dicc:
-                        time_now = time.strftime('%Y­%m­%d %H:%M:%S',
-                                                 time.gmtime(time.time()))
-                        direct = self.dicc[usuario]
-                        value = direct["expires"]
-                        if (str(time_now) > value):
-                            del self.dicc[direction]
-                            break
+                    regist(line_decod, dicc_usuarios, self.dicc, client_infor)
                     self.wfile.write(b"SIP/2.0 200 OK\r\n\r\n")
                     self.register2json()
                 else:
@@ -69,6 +72,8 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
         with open('registered.json', 'w') as fichero_json:
             json.dump(self.dicc, fichero_json, sort_keys=True, indent=4)
 
+    def json2registered(self):
+        """"""
 
 if __name__ == "__main__":
     # Creamos servidor de eco y escuchamos
