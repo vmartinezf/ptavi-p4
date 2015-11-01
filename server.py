@@ -27,9 +27,9 @@ def regist(line_decod, dicc_usuarios, dicc, client_infor):
     for usuario in dicc:
         time_now = time.strftime('%Y­%m­%d %H:%M:%S',
                                  time.gmtime(time.time()))
-        direct = dicc[usuario]
-        value = direct["expires"]
-        if ((str(time_now) > value)and (direction in dicc)):
+        if ((time_now > time_expiration) and (direction in dicc)):
+            print(time_now)
+            print(time_expiration)
             del dicc[direction]
             break
 
@@ -60,6 +60,7 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
                 else:
                     self.wfile.write(b"Hemos recibido tu peticion\r\n")
                     print("El cliente nos manda " + line_decod)
+                print(self.dicc)
             else:
                 self.wfile.write(b"Hemos recibido tu peticion\r\n")
                 print("El cliente nos manda " + line_decod)
@@ -78,7 +79,7 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
 
     def json2registered(self):
         """
-        Comprobar la existencia del fichero json y se actua en función 
+        Comprobar la existencia del fichero json y se actua en función
         de si existe o no
         """
         fichero_json = 'registered.json'
