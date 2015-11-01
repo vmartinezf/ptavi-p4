@@ -9,7 +9,6 @@ import sys
 import json
 import time
 import os.path
-import calendar
 
 
 def regist(line_decod, dicc_usuarios, dicc, client_infor):
