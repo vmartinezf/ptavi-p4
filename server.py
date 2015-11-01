@@ -24,7 +24,6 @@ def regist(line_decod, dicc_usuarios, dicc, client_infor):
             del dicc[direction]
     elif ('@' in direction):
         dicc[direction] = dicc_usuarios
-    print (dicc)
     for usuario in dicc:
         time_now = time.strftime('%Y­%m­%d %H:%M:%S',
                                  time.gmtime(time.time()))
@@ -70,11 +69,18 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
                 break
 
     def register2json(self):
+        """
+        Registro de usuarios en un fichero json
+        """
         fichero_json = json.dumps(self.dicc)
         with open('registered.json', 'w') as fichero_json:
             json.dump(self.dicc, fichero_json, sort_keys=True, indent=4)
 
     def json2registered(self):
+        """
+        Comprobar la existencia del fichero json y se actua en función 
+        de si existe o no
+        """
         fichero_json = 'registered.json'
         if (os.path.exists(fichero_json)):
             self.dicc = json.loads(open(fichero_json).read())
