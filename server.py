@@ -55,10 +55,8 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
                     self.wfile.write(b"SIP/2.0 200 OK\r\n\r\n")
                     self.register2json()
                 else:
-                    self.wfile.write(b"Hemos recibido tu peticion\r\n")
                     print("El cliente nos manda " + line_decod)
             else:
-                self.wfile.write(b"Hemos recibido tu peticion\r\n")
                 print("El cliente nos manda " + line_decod)
 
             # Si no hay más líneas salimos del bucle infinito
