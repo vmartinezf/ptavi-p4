@@ -20,8 +20,8 @@ LINE_LISTA = sys.argv[3:]
 
 LINE = ' '.join(LINE_LISTA)
 
-if (LINE.split()[0] == 'register'):
-    if (len(sys.argv) != 6):
+if LINE.split()[0] == 'register':
+    if len(sys.argv) != 6:
         sys.exit("Usage: client.py ip puerto register sip_address \
                  expires_value")
     if (('@' in LINE.split()[1]) and (type(LINE.split()[2]) == int)):
