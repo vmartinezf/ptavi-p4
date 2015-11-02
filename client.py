@@ -25,7 +25,6 @@ if LINE.split()[0] == 'register':
         sys.exit("Usage: client.py ip puerto register sip_address \
                  expires_value")
     if '@' in LINE.split()[1]:
-        print("HOLAAA")
         Line_Sip = " sip:" + LINE.split()[1] + " SIP/2.0\r\n"
         Line_Expires = "Expires: " + LINE.split()[2] + "\r\n"
         LINE = "REGISTER" + Line_Sip + Line_Expires
