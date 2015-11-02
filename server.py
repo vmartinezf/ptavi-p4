@@ -16,7 +16,12 @@ def regist(line_decod, dicc_usuarios, dicc, client_infor):
     expiration = int(line_decod.split()[2])
     expires = int(time.time()) + expiration
     dicc_usuarios["address"] = client_infor[0]
-    dicc_usuarios["expires"] = expires
+    time_now = time.strftime('%Y­%m­%d %H:%M:%S',
+                             time.gmtime(time.time()))
+    time_now1 = time_now.split('\u00ad')[0] + '-'
+    time_now2 = time_now1 + time_now.split('\u00ad')[1] + '-'
+    time_now3 = time_now2 + time_now.split('\u00ad')[2]
+    dicc_usuarios["expires"] = time_now3 + ' + ' + str(expiration)
     if expiration == 0:
         if direction in dicc:
             del dicc[direction]
