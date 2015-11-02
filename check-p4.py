@@ -23,7 +23,7 @@ repo_git = "http://github.com/" + sys.argv[1] + "/ptavi-p4"
 python_files = [
      'client.py',
      'server.py',
-     'register.libpcap.pcapng'
+     'register.libpcap'
     ]
 
 files = ['README.md',
