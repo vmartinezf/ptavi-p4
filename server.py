@@ -12,6 +12,9 @@ import os.path
 
 
 def regist(line_decod, dicc_usuarios, dicc, client_infor):
+    """
+    Función de registro de usuarios
+    """
     sip = line_decod.split()[1]
     direction = sip.split('sip:')[1]
     expiration = int(line_decod.split()[4])
