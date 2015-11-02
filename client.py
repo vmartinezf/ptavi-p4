@@ -26,8 +26,8 @@ if LINE.split()[0] == 'register':
                  expires_value")
     if '@' in LINE.split()[1]:
         print("HOLAAA")
-        Line_Sip = " sip:" + LINE.split()[1] + " SIP/2.0\r\n\\"
-        Line_Expires = "Expires: " + LINE.split()[2] + "\r\n\r\n"
+        Line_Sip = " sip:" + LINE.split()[1] + " SIP/2.0\r\n"
+        Line_Expires = "Expires: " + LINE.split()[2] + "\r\n"
         LINE = "REGISTER" + Line_Sip + Line_Expires
 
 # Creamos el socket, lo configuramos y lo atamos a un servidor/puerto
